@@ -29,10 +29,16 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Login::index', ['as' => 'login']);
-$routes->get('/logout', 'Login::logout');
-$routes->get('/registration', 'Registration::index', ['as'=> 'registration']);
-$routes->post('/registration','Registration::created', ['as' => 'createdUser']);
+
+//      Rota para a pagina incial       //
+$routes->get('/', 'User::login', ['as' => 'login']);
+//      Rota para fazer o logout do usuario     //
+$routes->get('/logout', 'User::logout', ['as' => 'logout']);
+//      Rota para a pagina com o formulario para cadastro de usuario    // 
+$routes->get('/registration', 'User::registration', ['as'=> 'registration']);
+//      Rota para criar o usuario   //
+$routes->post('/registration/created','User::created', ['as' => 'createdUser']);
+//      Rota para a home do site    //
 $routes->get('/home', 'Home::index');
 /*
  * --------------------------------------------------------------------

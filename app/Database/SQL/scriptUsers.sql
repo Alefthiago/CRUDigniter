@@ -1,0 +1,1 @@
+INSERT INTO IG_USERS VALUES ('alef@gmail.com', 'semHash');

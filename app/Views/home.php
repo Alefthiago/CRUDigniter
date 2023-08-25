@@ -1,4 +1,7 @@
+<!--    View PAI   -->
 <?= $this->extend('master') ?>
+
+<!--    Ponto inicial da renderização     -->
 <?= $this->section('content') ?>
 <h1>Home</h1>
 <div>
@@ -8,3 +11,4 @@
 
 <?= script_tag('/assets/js/functions/logout.js') ?>
 <?= $this->endSection() ?>
+<!--    Ponto final da renderização     -->
