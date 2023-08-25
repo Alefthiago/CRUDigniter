@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => 'localhot',
+        'username' => 'root',
+        'password' => 'root',
+        'database' => 'SHM_BOOKS',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
