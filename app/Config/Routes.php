@@ -31,13 +31,15 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 //      Rota para a pagina incial       //
-$routes->get('/', 'User::login', ['as' => 'login']);
+$routes->get('/', 'User::index', ['as' => 'loginPage']);
+//      Rota para a pagina realizar o login       //
+$routes->post('/login', 'User::login', ['as' => 'login']);
 //      Rota para fazer o logout do usuario     //
 $routes->get('/logout', 'User::logout', ['as' => 'logout']);
 //      Rota para a pagina com o formulario para cadastro de usuario    // 
-$routes->get('/registration', 'User::registration', ['as'=> 'registration']);
+$routes->get('/registration', 'User::registration', ['as' => 'registration']);
 //      Rota para criar o usuario   //
-$routes->post('/registration/created','User::created', ['as' => 'createdUser']);
+$routes->post('/registration/created', 'User::created', ['as' => 'createdUser']);
 //      Rota para a home do site    //
 $routes->get('/home', 'Home::index');
 /*

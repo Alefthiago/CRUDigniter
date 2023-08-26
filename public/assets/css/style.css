@@ -7,7 +7,7 @@ body {
 }
 
 /* CSS PARA LETRAS */
-.aviso {
+.danger {
     color: red;
     font-weight: bold;
     text-decoration: underline;
