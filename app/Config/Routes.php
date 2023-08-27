@@ -42,6 +42,12 @@ $routes->get('/registration', 'User::registration', ['as' => 'registration']);
 $routes->post('/registration/created', 'User::created', ['as' => 'createdUser']);
 //      Rota para a home do site    //
 $routes->get('/home', 'Home::index');
+//      Rota para pagina do crud    //
+$routes->get('/books', 'Books::index', ['as' => 'booksPage']);
+//      Rota para adicionar um novo registro    //
+$routes->post('/books/create', 'Books::create', ['as' => 'booksAdd']);
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

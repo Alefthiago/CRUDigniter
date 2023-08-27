@@ -9,7 +9,9 @@
     <button class="button-default" id="bCRUD" role="button">CRUD</button>
     <button class="button-default" id="bLogout" role="button">Sair</button>
 </div>
-<!--    Importando o js para executar o logout do usuário   -->
-<?= script_tag('/assets/js/functions/logout.js') ?>
+
+<!--    Importando o funções em js para a  pagina   -->
+<?= script_tag('/assets/javaScript/functions/home.js') ?>
+
 <?= $this->endSection() ?>
 <!--    Ponto final da renderização     -->

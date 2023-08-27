@@ -3,17 +3,17 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-//      Modal referente as query do usuario   //
-class User extends Model
+
+class Books extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'IG_USERS';
-    protected $primaryKey       = 'US_ID';
+    protected $table            = 'IG_BOOKS';
+    protected $primaryKey       = 'BK_ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['US_EMAIL', 'US_PASS'];
+    protected $allowedFields    = ['BK_TITLE', 'BK_AUTHOR', 'BK_PUBLISHER', 'BK_GENRE', 'BK_LINK', 'BK_DESCRIPTION'];
 
     // Dates
     protected $useTimestamps = false;
@@ -23,11 +23,15 @@ class User extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    
-    //      validação dos dados do formulario de cadastro   //
+
+    //      Validação dos dados vindos do formulario
     protected $validationRules      = [
-        'US_EMAIL' => 'required',
-        'US_PASS' => 'required',
+        'BK_TITLE' => 'required',
+        'BK_AUTHOR' => 'required',
+        'BK_PUBLISHER' => 'required',
+        'BK_GENRE' => 'required',
+        'BK_LINK' => 'required',
+        'BK_DESCRIPTION' => 'required'
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
