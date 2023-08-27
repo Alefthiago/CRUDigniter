@@ -7,6 +7,9 @@ use App\Models\UsHasBk;
 
 class Books extends BaseController
 {
+    //      Este CONTROLLER trata das VIEWS BOOKS E BOOKSUPDATE      //
+
+    //      ERRORMESSAGE é uma constante criada com uma mensagem padrão para erros       //
     public function index()
     {
         //      Verificação de login do usuario      //
@@ -14,16 +17,18 @@ class Books extends BaseController
             $userId = session('user')->id;
             try {
                 $modelBooks = new ModelBooks();
-                // Consulta os livros relacionados ao usuário
+                //      Consulta os livros relacionados ao usuário       //
                 $userBooks = $modelBooks->join('US_HAS_BK', 'US_HAS_BK.UHB_BK = IG_BOOKS.BK_ID')
                     ->where('US_HAS_BK.UHB_US', $userId)
                     ->findAll();
                 return view('books', ['books' => $userBooks]);
             } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+                //      Tratamento de erros em geral que tenham relação com o banco     //
                 return redirect()->route('booksPage')
                     ->with('error', ERRORMESSAGE)
                     ->withInput();
             } catch (\Exception $e) {
+                //      Tratamento de erros em geral        //
                 return redirect()->route('booksPage')
                     ->with('error', ERRORMESSAGE)
                     ->withInput();
@@ -48,7 +53,7 @@ class Books extends BaseController
         );
         try {
             $modelBooks = new ModelBooks();
-            $inserted = $modelBooks->insert($data); 
+            $inserted = $modelBooks->insert($data);
             if ($inserted) {
                 $UHB = new UsHasBk();
                 $userId = session('user')->id;
@@ -63,16 +68,19 @@ class Books extends BaseController
                     ->withInput();
             }
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            //      Se o registro já existir no banco        //
             if (preg_match('/duplicate/i', $e->getMessage(), $matches)) {
                 return redirect()->route('booksPage')
                     ->with('error', 'Livro já adicionado!')
                     ->withInput();
             } else {
+                //      Tratamento de erros em geral que tenham relação com o banco     //
                 return redirect()->route('booksPage')
                     ->with('error', ERRORMESSAGE . $e->getMessage())
                     ->withInput();
             }
         } catch (\Exception $e) {
+            //      Tratamento de erros em geral        //
             return redirect()->route('booksPage')
                 ->with('error', ERRORMESSAGE . $e->getMessage())
                 ->withInput();
@@ -94,6 +102,7 @@ class Books extends BaseController
             'link' => $link,
             'genre' => $genre
         );
+        //      Passando os dados do livro para a VIEW      //
         return view('booksUpdate', ['book' => $data]);
     }
 

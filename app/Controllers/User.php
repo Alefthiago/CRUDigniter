@@ -5,9 +5,9 @@ namespace App\Controllers;
 use App\Models\User as ModelUser;
 //      Este CONTROLLER trata das VIEWS LOGIN E RISTRATION  //
 
+//      ERRORMESSAGE é uma constante criada com uma mensagem padrão para erros       //
 class User extends BaseController
 {
-
     public function index()
     {
         //      Verificação de login do usuario      //
@@ -31,6 +31,7 @@ class User extends BaseController
             $userFound = $modalUser->select('US_EMAIL, US_PASS, US_ID')
                 ->where('US_EMAIL', $data->US_EMAIL)
                 ->first();
+            //      Verificando se a está correta (Compara com o Hash no banco)     //
             if (!$userFound or !password_verify($data->US_PASS, $userFound->US_PASS)) {
                 return redirect()->route('loginPage')
                     ->with('error', 'Dados inválidos!')
@@ -43,10 +44,12 @@ class User extends BaseController
             ));
             return redirect()->route('homePage');
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            //      Tratamento de erros em geral que tenham relação com o banco     //
             return redirect()->route('loginPage')
                 ->with('error', ERRORMESSAGE)
                 ->withInput();
         } catch (\Exception $e) {
+            //      Tratamento de erros em geral        //
             return redirect()->route('loginPage')
                 ->with('error', ERRORMESSAGE)
                 ->withInput();
@@ -81,7 +84,6 @@ class User extends BaseController
             'US_EMAIL' => $this->request->getPost()['email'],
             'US_PASS' => password_hash($this->request->getPost()['pass'], PASSWORD_ARGON2I)
         );
-        //      ERRORMESSAGE é uma constante criada com uma mensagem padrão para erros       //
         try {
             $modelUser = new ModelUser();
             $inserted = $modelUser->insert($data);
@@ -98,16 +100,20 @@ class User extends BaseController
                     ->withInput();
             }
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+
             if (preg_match('/duplicate/i', $e->getMessage(), $matches)) {
+                //      Se o registro já existir no banco        //
                 return redirect()->route('registrationPage')
                     ->with('error', 'E-mail inválido!')
                     ->withInput();
             } else {
+                //      Tratamento de erros em geral que tenham relação com o banco     //
                 return redirect()->route('registrationPage')
                     ->with('error', ERRORMESSAGE)
                     ->withInput();
             }
         } catch (\Exception $e) {
+            //      Tratamento de erros em geral        //
             return redirect()->route('registrationPage')
                 ->with('error', ERRORMESSAGE)
                 ->withInput();
