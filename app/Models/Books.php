@@ -13,7 +13,7 @@ class Books extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['BK_TITLE', 'BK_AUTHOR', 'BK_PUBLISHER', 'BK_GENRE', 'BK_LINK', 'BK_DESCRIPTION'];
+    protected $allowedFields    = ['BK_TITLE', 'BK_AUTHOR', 'BK_PUBLISHER', 'BK_GENRE', 'BK_LINK', 'BK_DESCRIPTION', 'US_ID'];
 
     // Dates
     protected $useTimestamps = false;
@@ -31,7 +31,8 @@ class Books extends Model
         'BK_PUBLISHER' => 'required',
         'BK_GENRE' => 'required',
         'BK_LINK' => 'required',
-        'BK_DESCRIPTION' => 'required'
+        'BK_DESCRIPTION' => 'required',
+        'US_ID' =>  'required'
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;

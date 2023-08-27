@@ -12,7 +12,7 @@
     <input type="password" placeholder="Senha" name="pass" required value="<?= old('pass') ?>">
     <input type="submit" value="Entrar">
     <!--    Redirecionamento para a pagina de cadastro      -->
-    <p class="p"><a href="<?= url_to('registrationPage') ?>">Criar conta</a></p>
+    <p class="p"><a href="<?= url_to('registrationPage') ?>" target="_self" rel="next">Criar conta</a></p>
 </form>
 <?= $this->endSection() ?>
 <!--    Ponto final da renderização     -->

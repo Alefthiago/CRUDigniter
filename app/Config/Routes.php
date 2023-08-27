@@ -46,7 +46,8 @@ $routes->get('/home', 'Home::index', ['as' => 'homePage']);
 $routes->get('/books', 'Books::index', ['as' => 'booksPage']);
 //      Rota para adicionar um novo registro    //
 $routes->post('/books/create', 'Books::create', ['as' => 'booksAdd']);
-
+//      Rota para atualizar os dados    //
+$routes->get('/books/update/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Books::updatePage/$1/$2/$3/$4/$5/$6/$7', ['as' => 'booksUpdate']);
 
 /*
  * --------------------------------------------------------------------

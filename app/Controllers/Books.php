@@ -15,11 +15,9 @@ class Books extends BaseController
             try {
                 $modelBooks = new ModelBooks();
                 // Consulta os livros relacionados ao usuário
-                $userBooks = $modelBooks
-                    ->join('US_HAS_BK', 'US_HAS_BK.UHB_BK = IG_BOOKS.BK_ID')
+                $userBooks = $modelBooks->join('US_HAS_BK', 'US_HAS_BK.UHB_BK = IG_BOOKS.BK_ID')
                     ->where('US_HAS_BK.UHB_US', $userId)
                     ->findAll();
-
                 return view('books', ['books' => $userBooks]);
             } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
                 return redirect()->route('booksPage')
@@ -45,17 +43,18 @@ class Books extends BaseController
             'BK_PUBLISHER' => $this->request->getPost('publisher'),
             'BK_GENRE' => $this->request->getPost('genre'),
             'BK_LINK' => $this->request->getPost('link'),
-            'BK_DESCRIPTION' => $this->request->getPost('description')
+            'BK_DESCRIPTION' => $this->request->getPost('description'),
+            'US_ID' => session('user')->id
         );
         try {
             $modelBooks = new ModelBooks();
-            $inserted = $modelBooks->insert($data);
+            $inserted = $modelBooks->insert($data); 
             if ($inserted) {
                 $UHB = new UsHasBk();
-                $user_id = session('user')->id;
+                $userId = session('user')->id;
                 $UHB->insert([
                     'UHB_BK' => $inserted,
-                    'UHB_US' => $user_id
+                    'UHB_US' => $userId
                 ]);
                 return redirect()->route('booksPage');
             } else {
@@ -64,12 +63,18 @@ class Books extends BaseController
                     ->withInput();
             }
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
-            return redirect()->route('booksPage')
-                ->with('error', ERRORMESSAGE)
-                ->withInput();
+            if (preg_match('/duplicate/i', $e->getMessage(), $matches)) {
+                return redirect()->route('booksPage')
+                    ->with('error', 'Livro já adicionado!')
+                    ->withInput();
+            } else {
+                return redirect()->route('booksPage')
+                    ->with('error', ERRORMESSAGE . $e->getMessage())
+                    ->withInput();
+            }
         } catch (\Exception $e) {
             return redirect()->route('booksPage')
-                ->with('error', ERRORMESSAGE)
+                ->with('error', ERRORMESSAGE . $e->getMessage())
                 ->withInput();
         }
     }
@@ -78,8 +83,18 @@ class Books extends BaseController
     {
     }
 
-    public function update()
+    public function updatePage($id, $title, $author, $publisher, $description, $link, $genre)
     {
+        $data = (object) array(
+            'id' => $id,
+            'title' => $title,
+            'author' => $author,
+            'publisher' => $publisher,
+            'description' => $description,
+            'link' => $link,
+            'genre' => $genre
+        );
+        return view('booksUpdate', ['book' => $data]);
     }
 
     public function delete()

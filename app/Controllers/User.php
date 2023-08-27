@@ -86,7 +86,11 @@ class User extends BaseController
             $modelUser = new ModelUser();
             $inserted = $modelUser->insert($data);
             if ($inserted) {
-                session()->set('user', [$data->US_EMAIL, $data->US_ID]);
+                var_dump($inserted);
+                session()->set('user', (object) array(
+                    'email' => $data->US_EMAIL,
+                    'id' => $inserted
+                ));
                 return redirect()->route('homePage');
             } else {
                 return redirect()->route('registrationPage')

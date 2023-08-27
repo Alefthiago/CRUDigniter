@@ -6,12 +6,13 @@
 <h1>Bem-vindo&lpar;a&rpar;</h1>
 <div>
     <p><?= var_dump(session('user'))?></p>
-    <button class="button-default" id="bCRUD" role="button">CRUD</button>
-    <button class="button-default" id="bLogout" role="button">Sair</button>
+    <a href="<?= url_to('booksPage')?>" target="_self" rel="next">
+        <button class="button-default" id="bCRUD" role="button">CRUD</button>
+    </a>
+    <a href="<?= url_to('logout')?>" target="_self" rel="next">
+        <button class="button-default" id="bLogout" role="button">Sair</button>
+    </a>
 </div>
-
-<!--    Importando o funções em js para a  pagina   -->
-<?= script_tag('/assets/javaScript/functions/home.js') ?>
 
 <?= $this->endSection() ?>
 <!--    Ponto final da renderização     -->

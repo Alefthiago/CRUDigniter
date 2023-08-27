@@ -7,8 +7,6 @@
 <?php if (session()->has('error')) : ?>
     <span class="danger"><?= session()->getFlashdata('error') ?></span>
 <?php endif ?>
-<pre>
-</pre>
 <?= var_dump(session('user')->id) ?>
 <form action="<?= url_to('booksAdd') ?>" method="post" class="formDefault">
     <input type="text" placeholder="Título" name="title" required value="<?= old('title') ?>">
@@ -25,7 +23,9 @@
     <input type="submit" value="Adicionar">
 </form>
 <div>
-    <button class="button-default" id="buttonBack" role="button">Voltar</button>
+    <a href="<?= url_to('homePage') ?>" target="_self">
+        <button class="button-default" id="buttonBack" role="button">Voltar</button>
+    </a>
 </div>
 <h2 style="text-align: center;">Meus Livros</h2>
 <div class="listBooks">
@@ -58,14 +58,23 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK ?>">
+                                    <a href="<?= $book->BK_LINK ?>" target="_blank" rel="external">
                                         <button class="button-default">
                                             Ver livro
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <a href="<?= url_to(
+                                                    'booksUpdate',
+                                                    $book->BK_ID,
+                                                    $book->BK_TITLE,
+                                                    $book->BK_AUTHOR,
+                                                    $book->BK_PUBLISHER,
+                                                    $book->BK_DESCRIPTION,
+                                                    $book->BK_LINK,
+                                                    $book->BK_GENRE
+                                                ) ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
@@ -113,14 +122,23 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK ?>">
+                                    <a href="<?= $book->BK_LINK ?>" target="_blank" rel="external">
                                         <button class="button-default">
                                             Ver livro
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <a href="<?= url_to(
+                                                    'booksUpdate',
+                                                    $book->BK_ID,
+                                                    $book->BK_TITLE,
+                                                    $book->BK_AUTHOR,
+                                                    $book->BK_PUBLISHER,
+                                                    $book->BK_DESCRIPTION,
+                                                    $book->BK_LINK,
+                                                    $book->BK_GENRE
+                                                ) ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
@@ -167,14 +185,23 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK ?>">
+                                    <a href="<?= $book->BK_LINK ?>" target="_blank" rel="external">
                                         <button class="button-default">
                                             Ver livro
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <a href="<?= url_to(
+                                                    'booksUpdate',
+                                                    $book->BK_ID,
+                                                    $book->BK_TITLE,
+                                                    $book->BK_AUTHOR,
+                                                    $book->BK_PUBLISHER,
+                                                    $book->BK_DESCRIPTION,
+                                                    $book->BK_LINK,
+                                                    $book->BK_GENRE
+                                                ) ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
@@ -195,9 +222,6 @@
         </div>
     <?php endif ?>
 </div>
-
-<!--    Importando o funções em js para a  pagina   -->
-<?= script_tag('/assets/javaScript/functions/books.js') ?>
 
 <?= $this->endSection() ?>
 <!--    Ponto final da renderização     -->
