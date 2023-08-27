@@ -8,7 +8,7 @@
 <?php if (session()->has('error')) : ?>
     <span class="danger"><?= session()->getFlashdata('error') ?></span>
 <?php endif ?>
-<form action="<?= url_to('createdUser') ?>" method="post" class="formDefault">
+<form action="<?= url_to('registration') ?>" method="post" class="formDefault">
     <input type="email" placeholder="E-mail" name="email" required value="<?= old('email') ?>">
     <input type="password" placeholder="Senha" name="pass" required value="<?= old('pass') ?>">
     <input type="password" placeholder="Confirmar Senha" name="confirmPass" required value="<?= old('confirmPass') ?>">

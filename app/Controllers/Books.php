@@ -3,18 +3,24 @@
 namespace App\Controllers;
 
 use App\Models\Books as ModelBooks;
+use App\Models\UsHasBk;
 
 class Books extends BaseController
 {
-
     public function index()
     {
+        //      Verificação de login do usuario      //
         if (session()->has('user')) {
-            //      Verificação de login do usuario      //
+            $userId = session('user')->id;
             try {
                 $modelBooks = new ModelBooks();
-                $findAll = $modelBooks->findAll();
-                return view('books', ['books' => $findAll]);
+                // Consulta os livros relacionados ao usuário
+                $userBooks = $modelBooks
+                    ->join('US_HAS_BK', 'US_HAS_BK.UHB_BK = IG_BOOKS.BK_ID')
+                    ->where('US_HAS_BK.UHB_US', $userId)
+                    ->findAll();
+
+                return view('books', ['books' => $userBooks]);
             } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
                 return redirect()->route('booksPage')
                     ->with('error', ERRORMESSAGE)
@@ -29,6 +35,7 @@ class Books extends BaseController
         }
     }
 
+
     public function create()
     {
         //      Recuperando dados do request    //
@@ -37,12 +44,19 @@ class Books extends BaseController
             'BK_AUTHOR' => $this->request->getPost('author'),
             'BK_PUBLISHER' => $this->request->getPost('publisher'),
             'BK_GENRE' => $this->request->getPost('genre'),
-            'BK_LINK' => $this->request->getPost('link')
+            'BK_LINK' => $this->request->getPost('link'),
+            'BK_DESCRIPTION' => $this->request->getPost('description')
         );
         try {
             $modelBooks = new ModelBooks();
             $inserted = $modelBooks->insert($data);
             if ($inserted) {
+                $UHB = new UsHasBk();
+                $user_id = session('user')->id;
+                $UHB->insert([
+                    'UHB_BK' => $inserted,
+                    'UHB_US' => $user_id
+                ]);
                 return redirect()->route('booksPage');
             } else {
                 return redirect()->route('booksPage')

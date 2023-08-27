@@ -5,7 +5,7 @@
 <?= $this->section('content') ?>
 <h1>Bem-vindo&lpar;a&rpar;</h1>
 <div>
-    <p><?= session('user') ?></p>
+    <p><?= var_dump(session('user'))?></p>
     <button class="button-default" id="bCRUD" role="button">CRUD</button>
     <button class="button-default" id="bLogout" role="button">Sair</button>
 </div>

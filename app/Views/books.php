@@ -9,12 +9,13 @@
 <?php endif ?>
 <pre>
 </pre>
-
+<?= var_dump(session('user')->id) ?>
 <form action="<?= url_to('booksAdd') ?>" method="post" class="formDefault">
     <input type="text" placeholder="Título" name="title" required value="<?= old('title') ?>">
     <input type="text" placeholder="Autor" name="author" required value="<?= old('author') ?>">
     <input type="text" placeholder="Editora" name="publisher" required value="<?= old('publisher') ?>">
     <input type="text" placeholder="Link" name="link" required value="<?= old('link') ?>">
+    <textarea name="description" placeholder="Descrição" id="" cols="30" rows="10" value="<?= old('description') ?>"></textarea>
     <select name="genre" required>
         <option disabled selected hidden>Selecione um gênero</option>
         <option value="Biografia">Biografia</option>
@@ -57,7 +58,7 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK?>">
+                                    <a href="<?= $book->BK_LINK ?>">
                                         <button class="button-default">
                                             Ver livro
                                         </button>
@@ -112,7 +113,7 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK?>">
+                                    <a href="<?= $book->BK_LINK ?>">
                                         <button class="button-default">
                                             Ver livro
                                         </button>
@@ -166,7 +167,7 @@
                                     <?= $book->BK_DESCRIPTION ?>
                                 </td>
                                 <td>
-                                    <a href="<?= $book->BK_LINK?>">
+                                    <a href="<?= $book->BK_LINK ?>">
                                         <button class="button-default">
                                             Ver livro
                                         </button>

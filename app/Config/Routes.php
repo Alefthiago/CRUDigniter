@@ -37,11 +37,11 @@ $routes->post('/login', 'User::login', ['as' => 'login']);
 //      Rota para fazer o logout do usuario     //
 $routes->get('/logout', 'User::logout', ['as' => 'logout']);
 //      Rota para a pagina com o formulario para cadastro de usuario    // 
-$routes->get('/registration', 'User::registration', ['as' => 'registration']);
+$routes->get('/registration', 'User::registration', ['as' => 'registrationPage']);
 //      Rota para criar o usuario   //
-$routes->post('/registration/created', 'User::created', ['as' => 'createdUser']);
+$routes->post('/registration/created', 'User::created', ['as' => 'registration']);
 //      Rota para a home do site    //
-$routes->get('/home', 'Home::index');
+$routes->get('/home', 'Home::index', ['as' => 'homePage']);
 //      Rota para pagina do crud    //
 $routes->get('/books', 'Books::index', ['as' => 'booksPage']);
 //      Rota para adicionar um novo registro    //

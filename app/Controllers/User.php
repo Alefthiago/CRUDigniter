@@ -14,20 +14,21 @@ class User extends BaseController
         if (!session()->has('user')) {
             return view('login');
         } else {
-            return redirect()->route('home');
+            return redirect()->route('homePage');
         }
     }
 
     public function login()
     {
-        //      Obtendo os dados enviados na request     //
+        //      Obtendo os dados enviados do request     //
+        //      Os inputs são email e pass      //
         $data = (object) array(
             'US_EMAIL' => $this->request->getPost()['email'],
             'US_PASS' => $this->request->getPost()['pass']
         );
         try {
             $modalUser = new ModelUser();
-            $userFound = $modalUser->select('US_EMAIL, US_PASS')
+            $userFound = $modalUser->select('US_EMAIL, US_PASS, US_ID')
                 ->where('US_EMAIL', $data->US_EMAIL)
                 ->first();
             if (!$userFound or !password_verify($data->US_PASS, $userFound->US_PASS)) {
@@ -35,9 +36,12 @@ class User extends BaseController
                     ->with('error', 'Dados inválidos!')
                     ->withInput();
             }
-            //      Criando uma session com os dados do usuário salvando apenas o Email     //
-            session()->set('user', $data->US_EMAIL);
-            return redirect()->route('home');
+            //      Criando uma session com os dados do usuário     //
+            session()->set('user', (object) array(
+                'email' => $userFound->US_EMAIL,
+                'id' => $userFound->US_ID
+            ));
+            return redirect()->route('homePage');
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
             return redirect()->route('loginPage')
                 ->with('error', ERRORMESSAGE)
@@ -60,7 +64,7 @@ class User extends BaseController
         if (!session()->has('user')) {
             return view('registration');
         } else {
-            return redirect()->route('home');
+            return redirect()->route('homePage');
         }
     }
 
@@ -68,7 +72,7 @@ class User extends BaseController
     {
         //      Inputs email, pass e confirmPass; São retornados como um array      //
         if ($this->request->getPost()['pass'] != $this->request->getPost()['confirmPass']) {
-            return redirect()->route('registration')
+            return redirect()->route('registrationPage')
                 ->with('error', 'As senhas devem ser iguais!')
                 ->withInput();
         };
@@ -82,25 +86,25 @@ class User extends BaseController
             $modelUser = new ModelUser();
             $inserted = $modelUser->insert($data);
             if ($inserted) {
-                session()->set('user', $data->US_EMAIL);
-                return redirect()->route('home');
+                session()->set('user', [$data->US_EMAIL, $data->US_ID]);
+                return redirect()->route('homePage');
             } else {
-                return redirect()->route('registration')
-                    ->with('error', 'E-mail inválido!')
+                return redirect()->route('registrationPage')
+                    ->with('error', ERRORMESSAGE)
                     ->withInput();
             }
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
             if (preg_match('/duplicate/i', $e->getMessage(), $matches)) {
-                return redirect()->route('registration')
+                return redirect()->route('registrationPage')
                     ->with('error', 'E-mail inválido!')
                     ->withInput();
             } else {
-                return redirect()->route('registration')
+                return redirect()->route('registrationPage')
                     ->with('error', ERRORMESSAGE)
                     ->withInput();
             }
         } catch (\Exception $e) {
-            return redirect()->route('registration')
+            return redirect()->route('registrationPage')
                 ->with('error', ERRORMESSAGE)
                 ->withInput();
         }
