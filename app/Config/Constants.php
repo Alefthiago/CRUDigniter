@@ -5,7 +5,7 @@
     | --------------------------------------------------------------------
 */
 define('ERRORMESSAGE', 'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.');
-
+define('SUCCESSMESSAGE', 'A operação foi concluída com sucesso.');
 /*
  | --------------------------------------------------------------------
  | App Namespace

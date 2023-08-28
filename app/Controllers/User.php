@@ -10,7 +10,6 @@ class User extends BaseController
 {
     public function index()
     {
-        //      Verificação de login do usuario      //
         if (!session()->has('user')) {
             return view('login');
         } else {
@@ -29,9 +28,8 @@ class User extends BaseController
         try {
             $modalUser = new ModelUser();
             $userFound = $modalUser->select('US_EMAIL, US_PASS, US_ID')
-                ->where('US_EMAIL', $data->US_EMAIL)
-                ->first();
-            //      Verificando se a está correta (Compara com o Hash no banco)     //
+                ->where('US_EMAIL', $data->US_EMAIL)->first();
+            //      Verificando se a senha está correta (Compara com o Hash no banco)     //
             if (!$userFound or !password_verify($data->US_PASS, $userFound->US_PASS)) {
                 return redirect()->route('loginPage')
                     ->with('error', 'Dados inválidos!')
@@ -82,7 +80,8 @@ class User extends BaseController
 
         $data = (object) array(
             'US_EMAIL' => $this->request->getPost()['email'],
-            'US_PASS' => password_hash($this->request->getPost()['pass'], PASSWORD_ARGON2I)
+            //      Senha está sendo criptografada no filtro AUTH      //
+            'US_PASS' => $this->request->getPost()['pass']
         );
         try {
             $modelUser = new ModelUser();

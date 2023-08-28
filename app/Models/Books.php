@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\UsHasBk as ModelUsHasBk;
 use CodeIgniter\Model;
-
+//      Modal referente às queries dos livros   //
 class Books extends Model
 {
     protected $DBGroup          = 'default';
@@ -41,11 +42,21 @@ class Books extends Model
     // Callbacks
     protected $allowCallbacks = true;
     protected $beforeInsert   = [];
-    protected $afterInsert    = [];
+    protected $afterInsert    = ['beforeInsert'];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function beforeInsert(array $data)
+    {
+        $UHB = new ModelUsHasBk();   
+        $userId = session('user')->id;
+        $UHB->insert([
+            'UHB_BK' => $data['id'],
+            'UHB_US' => $userId
+        ]);
+    }
 }

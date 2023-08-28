@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-//      Modal referente as query do usuario   //
+//      Modal referente às queries do usuario   //
 class User extends Model
 {
     protected $DBGroup          = 'default';
@@ -23,7 +23,7 @@ class User extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    
+
     //      validação dos dados do formulario de cadastro   //
     protected $validationRules      = [
         'US_EMAIL' => 'required',
@@ -35,7 +35,7 @@ class User extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['hashPass'];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -43,4 +43,11 @@ class User extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    //      Fazendo criptografia da senha para adicionar ao banco       //
+    protected function hashPass(array $data)
+    {
+        $data['data']['US_PASS'] = password_hash($data['data']['US_PASS'], PASSWORD_DEFAULT);
+        return $data;
+    }
 }

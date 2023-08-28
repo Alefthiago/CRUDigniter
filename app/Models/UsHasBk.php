@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-
+use CodeIgniter\Model; 
+//      Model referente às queries da tabela intermediária entre usuário e livros       //
 class UsHasBk extends Model
 {
     protected $DBGroup          = 'default';

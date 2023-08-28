@@ -10,13 +10,24 @@
     <span class="danger"><?= session()->getFlashdata('error') ?></span>
 <?php endif ?>
 
+<?php if (session()->has('message')) : ?>
+    <span class="message"><?= session()->getFlashdata('message') ?></span>
+<?php endif ?>
+
+
 <form action="<?= url_to('booksAdd') ?>" method="post" class="formDefault">
+    <label>Título</label>
     <input type="text" placeholder="Título" name="title" required value="<?= old('title') ?>">
+    <label>Autor</label>
     <input type="text" placeholder="Autor" name="author" required value="<?= old('author') ?>">
+    <label>Editora</label>
     <input type="text" placeholder="Editora" name="publisher" required value="<?= old('publisher') ?>">
+    <label>Link</label>
     <input type="text" placeholder="Link" name="link" required value="<?= old('link') ?>">
-    <textarea name="description" placeholder="Descrição" id="" cols="30" rows="10" value="<?= old('description') ?>"></textarea>
-    <select name="genre" required>
+    <label>Descrição</label>
+    <textarea name="description" placeholder="Descrição" id="" cols="30" rows="10" value="<?= old('description') ?>" required></textarea>
+    <label>Genêro</label>
+    <select name="genre">
         <option disabled selected hidden>Selecione um gênero</option>
         <option value="Biografia">Biografia</option>
         <option value="Ficção">Ficção</option>
@@ -74,27 +85,26 @@
                                 </td>
                                 <td>
                                     <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
-                                    <a href="<?= url_to(
-                                                    'booksUpdate',
-                                                    $book->BK_ID,
-                                                    $book->BK_TITLE,
-                                                    $book->BK_AUTHOR,
-                                                    $book->BK_PUBLISHER,
-                                                    $book->BK_DESCRIPTION,
-                                                    $book->BK_LINK,
-                                                    $book->BK_GENRE
-                                                ) ?>">
+                                    <form action="<?= url_to('booksUpdatePage') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
+                                        <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
+                                        <input type="hidden" name="author" value="<?= $book->BK_AUTHOR ?>">
+                                        <input type="hidden" name="publisher" value="<?= $book->BK_PUBLISHER ?>">
+                                        <input type="hidden" name="description" value="<?= $book->BK_DESCRIPTION ?>">
+                                        <input type="hidden" name="link" value="<?= $book->BK_LINK ?>">
+                                        <input type="hidden" name="genre" value="<?= $book->BK_GENRE ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <form action="<?= url_to('booksDelete') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <button class="button-default">
                                             Remover
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                             <?php endif ?>
                         </tr>
@@ -141,27 +151,26 @@
                                 </td>
                                 <td>
                                     <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
-                                    <a href="<?= url_to(
-                                                    'booksUpdate',
-                                                    $book->BK_ID,
-                                                    $book->BK_TITLE,
-                                                    $book->BK_AUTHOR,
-                                                    $book->BK_PUBLISHER,
-                                                    $book->BK_DESCRIPTION,
-                                                    $book->BK_LINK,
-                                                    $book->BK_GENRE
-                                                ) ?>">
+                                    <form action="<?= url_to('booksUpdatePage') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
+                                        <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
+                                        <input type="hidden" name="author" value="<?= $book->BK_AUTHOR ?>">
+                                        <input type="hidden" name="publisher" value="<?= $book->BK_PUBLISHER ?>">
+                                        <input type="hidden" name="description" value="<?= $book->BK_DESCRIPTION ?>">
+                                        <input type="hidden" name="link" value="<?= $book->BK_LINK ?>">
+                                        <input type="hidden" name="genre" value="<?= $book->BK_GENRE ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <form action="<?= url_to('booksDelete') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <button class="button-default">
                                             Remover
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                             <?php endif ?>
                         </tr>
@@ -169,7 +178,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div>
             <h3>Outro</h3>
             <table>
@@ -208,27 +217,26 @@
                                 </td>
                                 <td>
                                     <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
-                                    <a href="<?= url_to(
-                                                    'booksUpdate',
-                                                    $book->BK_ID,
-                                                    $book->BK_TITLE,
-                                                    $book->BK_AUTHOR,
-                                                    $book->BK_PUBLISHER,
-                                                    $book->BK_DESCRIPTION,
-                                                    $book->BK_LINK,
-                                                    $book->BK_GENRE
-                                                ) ?>">
+                                    <form action="<?= url_to('booksUpdatePage') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
+                                        <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
+                                        <input type="hidden" name="author" value="<?= $book->BK_AUTHOR ?>">
+                                        <input type="hidden" name="publisher" value="<?= $book->BK_PUBLISHER ?>">
+                                        <input type="hidden" name="description" value="<?= $book->BK_DESCRIPTION ?>">
+                                        <input type="hidden" name="link" value="<?= $book->BK_LINK ?>">
+                                        <input type="hidden" name="genre" value="<?= $book->BK_GENRE ?>">
                                         <button class="button-default">
                                             Editar
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                                 <td>
-                                    <a href="edit.php?id=">
+                                    <form action="<?= url_to('booksDelete') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <button class="button-default">
                                             Remover
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                             <?php endif ?>
                         </tr>

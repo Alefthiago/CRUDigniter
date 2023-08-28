@@ -41,13 +41,17 @@ $routes->get('/registration', 'User::registration', ['as' => 'registrationPage']
 //      Rota para criar o usuario   //
 $routes->post('/registration/created', 'User::created', ['as' => 'registration']);
 //      Rota para a home do site    //
-$routes->get('/home', 'Home::index', ['as' => 'homePage']);
+$routes->get('/home', 'Home::index', ['as' => 'homePage', 'filter' => 'auth']);
 //      Rota para pagina do crud    //
-$routes->get('/books', 'Books::index', ['as' => 'booksPage']);
+$routes->get('/books', 'Books::index', ['as' => 'booksPage', 'filter' => 'auth']);
 //      Rota para adicionar um novo registro    //
-$routes->post('/books/create', 'Books::create', ['as' => 'booksAdd']);
-//      Rota para atualizar os dados    //
-$routes->get('/books/update/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Books::updatePage/$1/$2/$3/$4/$5/$6/$7', ['as' => 'booksUpdate']);
+$routes->post('/books/create', 'Books::create', ['as' => 'booksAdd', 'filter' => 'auth']);
+//      Rota para atualizar o formulario para atualizar o registro    //
+$routes->post('/books/updatePage', 'Books::updatePage', ['as' => 'booksUpdatePage', 'filter' => 'auth']);
+//      Rota para fazer a atualização do livro  //
+$routes->post('/books/update', 'Books::update', ['as' => 'booksUpdate', 'filter' => 'auth']);
+//      Rota para deletar o livro   //
+$routes->post('/books/delete', 'Books::delete', ['as' => 'booksDelete', 'filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------

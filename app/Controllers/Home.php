@@ -1,17 +1,12 @@
 <?php
 
 namespace App\Controllers;
-//      Controller responsavel pela pagina home do site
+//      Controller responsável pela VIEW home     //
 class Home extends BaseController
 {
 
     public function index()
     {
-        //      Verificação de login do usuario      //
-        if (session()->has('user')) {
-            return view('home');
-        } else {
-            return redirect()->route('loginPage');
-        }
+        return view('home');
     }
 }

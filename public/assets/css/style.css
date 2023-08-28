@@ -8,7 +8,13 @@ body {
 
 /* CSS PARA LETRAS */
 .danger {
-    color: red;
+    color: #f80202;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.message {
+    color: #0e920e;
     font-weight: bold;
     text-decoration: underline;
 }
