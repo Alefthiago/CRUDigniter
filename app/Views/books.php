@@ -84,7 +84,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
+                                    <!--     Realiza um request para carregar os dados do livro referente no formulado de atualização    -->
                                     <form action="<?= url_to('booksUpdatePage') ?>" method="post">
                                         <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
@@ -150,7 +150,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
+                                    <!--     Realiza um request para carregar os dados do livro referente no formulado de atualização    -->
                                     <form action="<?= url_to('booksUpdatePage') ?>" method="post">
                                         <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
@@ -216,7 +216,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <!--     Realiza um request do tipo GET para carregar os dados do livro referente no formulado de atualização    -->
+                                    <!--     Realiza um request para carregar os dados do livro referente no formulado de atualização    -->
                                     <form action="<?= url_to('booksUpdatePage') ?>" method="post">
                                         <input type="hidden" name="id" value="<?= $book->BK_ID ?>">
                                         <input type="hidden" name="title" value="<?= $book->BK_TITLE ?>">
