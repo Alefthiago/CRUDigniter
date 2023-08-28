@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhot',
+        'hostname' => 'code-igniter.cieg2umun2mv.sa-east-1.rds.amazonaws.com',
         'username' => 'root',
-        'password' => 'root',
+        'password' => 'codeigniter',
         'database' => 'SHM_BOOKS',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
@@ -43,7 +43,6 @@ class Database extends Config
         'failover' => [],
         'port'     => 3306,
     ];
-
     /**
      * This database connection is used when
      * running PHPUnit database tests.
