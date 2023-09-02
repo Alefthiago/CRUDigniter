@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'code-igniter.cieg2umun2mv.sa-east-1.rds.amazonaws.com',
+        'hostname' => 'localhost',
         'username' => 'root',
-        'password' => 'codeigniter',
+        'password' => 'root',
         'database' => 'SHM_BOOKS',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
